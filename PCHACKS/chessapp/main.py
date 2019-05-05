@@ -56,9 +56,9 @@ def multiplayer():
     newPositionStr = str(newPositionPlayer1)
 
     if(pieceStr == 'knight' or 'night'):
-        pieceStr = 'N' + newPositionStr
+        pieceStr = 'N' + newPositionStr.lower()
     elif(pieceStr == 'pawn' or 'Pawn'):
-        pieceStr = newPositionStr
+        pieceStr = newPositionStr.lower()
     else:
         pieceStr = pieceStr.charAt(0).upper() + newPositionStr
 
