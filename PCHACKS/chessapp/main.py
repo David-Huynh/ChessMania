@@ -50,6 +50,17 @@ def multiplayer():
     oldPositionPlayer1 = req.get('queryResult').get('parameters').get('oldPosition')
     newPositionPlayer1 = req.get('queryResult').get('parameters').get('newPosition')
     checkmate = req.get('queryResult').get('queryText')
+    piece = req.get('queryResult').get('parameters').get('piece')
+
+    pieceStr = str(piece)
+    newPositionStr = str(newPositionPlayer1)
+
+    if(pieceStr == 'knight' or 'night'):
+        pieceStr = 'N' + newPositionStr
+    elif(pieceStr == 'pawn' or 'Pawn'):
+        pieceStr = newPositionStr
+    else:
+        pieceStr = pieceStr.charAt(0).upper() + newPositionStr
 
     # fetch action from json
     action = req.get('queryResult').get('action')
@@ -74,7 +85,7 @@ def multiplayer():
         board = chess.Board(boardState)
 
     if (chess.Move.from_uci(str(oldPositionPlayer1 + newPositionPlayer1)) in board.legal_moves):
-        board.push_san(oldPositionPlayer1 + newPositionPlayer1)
+        board.push_san(pieceStr)
 
         # Get Fen position
         fenPosition = board.fen()
@@ -126,6 +137,17 @@ def results():
     oldPosition = req.get('queryResult').get('parameters').get('oldPosition')
     newPosition = req.get('queryResult').get('parameters').get('newPosition')
     checkmate = req.get('queryResult').get('queryText')
+    piece = req.get('queryResult').get('parameters').get('piece')
+
+    pieceStr = str(piece)
+    newPositionStr = str(newPosition)
+
+    if(pieceStr == 'knight' or 'night'):
+        pieceStr = 'N' + newPositionStr
+    elif(pieceStr == 'pawn' or 'Pawn'):
+        pieceStr = newPositionStr
+    else:
+        pieceStr = pieceStr.charAt(0).upper() + newPositionStr
 
 
 
@@ -152,7 +174,7 @@ def results():
 
 
     if (chess.Move.from_uci(str(oldPosition) + str(newPosition)) in board.legal_moves):
-        board.push_san(oldPosition+newPosition)
+        board.push_san(pieceStr)
 
         #Get Fen position
         fenPosition = board.fen()
